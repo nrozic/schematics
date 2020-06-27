@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "iCodeFormatting",
+  "title": "Code formatting rules for Angular projects",
+  "type": "object",
+  "description": "Generates code formatting configuration to ensure consistent code formatting across the team.",
+  "properties": {
+    "projectRoot": {
+      "description": "The root directory of the app.",
+      "type": "string",
+      "visible": false
+    },
+    "indentStyle": {
+      "description": "Prefered indentation style.",
+      "type": "string",
+      "enum": ["space", "tab"],
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What is your prefered indentation style for this project?"
+    },
+    "indentSize": {
+      "description": "Prefered indentation style.",
+      "type": "number",
+      "enum": [1, 2, 3, 4, 5, 6, 7, 8],
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What is your prefered indentation size for this project?"
+    },
+    "configFileName": {
+      "description": "Name for the config file",
+      "type": "string",
+      "default": ".editorconfig",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    }
+  },
+  "required": ["indentStyle", "indentSize"]
+}
