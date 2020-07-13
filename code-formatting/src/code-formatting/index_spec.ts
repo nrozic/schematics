@@ -1,39 +1,41 @@
 // import { Tree } from "@angular-devkit/schematics";
 import {
-    SchematicTestRunner,
-    UnitTestTree,
-} from "@angular-devkit/schematics/testing";
+  SchematicTestRunner,
+  UnitTestTree,
+} from '@angular-devkit/schematics/testing';
 // import * as path from "path";
-import { ICodeFormatting } from "../code-formatting/schema";
+import { ICodeFormatting } from '../code-formatting/schema';
 
 // const collectionPath = path.join(__dirname, "../collection.json");
 
-describe("code-formatting", () => {
-    const schematicRunner = new SchematicTestRunner(
-        "@schematics/angular",
-        require.resolve("../collection.json")
-    );
+describe('code-formatting', () => {
+  const schematicRunner = new SchematicTestRunner(
+    '@schematics/angular',
+    require.resolve('../collection.json')
+  );
 
-    const workspaceOptions: ICodeFormatting = {
-        indentSize: 4,
-        indentStyle: "space",
-    };
+  console.log('probavamo');
 
-    let workspaceTree: UnitTestTree;
-    beforeEach(async () => {
-        workspaceTree = await schematicRunner
-            .runSchematicAsync("code-formatting", workspaceOptions)
-            .toPromise();
-    });
+  const workspaceOptions: ICodeFormatting = {
+    indentSize: 4,
+    indentStyle: 'space',
+  };
 
-    it("adds .editorconfig to project", async () => {
-        const options = { ...workspaceOptions };
+  let workspaceTree: UnitTestTree;
+  beforeEach(async () => {
+    workspaceTree = await schematicRunner
+      .runSchematicAsync('code-formatting', workspaceOptions)
+      .toPromise();
+  });
 
-        const tree = await schematicRunner
-            .runSchematicAsync("code-formatting", options, workspaceTree)
-            .toPromise();
+  it('adds .editorconfig to project', async () => {
+    const options = { ...workspaceOptions };
 
-        console.log(tree.files);
-        expect(tree.files).toEqual(jasmine.arrayContaining(["/.editorconfig"]));
-    });
+    const tree = await schematicRunner
+      .runSchematicAsync('code-formatting', options, workspaceTree)
+      .toPromise();
+
+    console.log(tree.files);
+    expect(tree.files).toEqual(jasmine.arrayContaining(['/.editorconfig']));
+  });
 });
