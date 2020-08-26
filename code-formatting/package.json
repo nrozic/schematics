@@ -31,12 +31,5 @@
         "stylelint-config-recommended": "^3.0.0",
         "tslint": "^6.1.2",
         "tslint-config-prettier": "^1.18.0"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "pretty-quick --verbose --staged && prettier-stylelint --write -q 'src/**/*.{css,scss}'",
-            "pre-push": "ng lint",
-            "post-merge": "run-if-changed"
-        }
     }
 }
