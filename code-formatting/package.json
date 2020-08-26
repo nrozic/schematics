@@ -1,6 +1,6 @@
 {
     "name": "code-formatting",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "A blank schematics",
     "scripts": {
         "build": "tsc -p tsconfig.json",
@@ -10,7 +10,7 @@
     "keywords": [
         "schematics"
     ],
-    "author": "",
+    "author": "Nikola Rožić",
     "license": "MIT",
     "schematics": "./src/collection.json",
     "dependencies": {
@@ -31,5 +31,12 @@
         "stylelint-config-recommended": "^3.0.0",
         "tslint": "^6.1.2",
         "tslint-config-prettier": "^1.18.0"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --verbose --staged && prettier-stylelint --write -q 'src/**/*.{css,scss}'",
+            "pre-push": "ng lint",
+            "post-merge": "run-if-changed"
+        }
     }
 }
