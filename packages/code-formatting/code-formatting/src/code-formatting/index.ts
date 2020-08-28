@@ -27,6 +27,11 @@ import {
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { devDependencies, Husky } from './variables';
 
+/**
+ * This method will invoke all Rules that are part of this schematic.
+ *
+ * @param _options Input options
+ */
 export function codeFormatting(_options: any): Rule {
     return (tree: Tree, _context: SchematicContext) =>
         chain([
@@ -37,6 +42,9 @@ export function codeFormatting(_options: any): Rule {
         ])(tree, _context);
 }
 
+/**
+ * This method will add preconfigured husky hooks to package.json.
+ */
 export function addHusky(): Rule {
     const filePath = '/package.json';
 
@@ -47,7 +55,6 @@ export function addHusky(): Rule {
         const file = tree.read(filePath);
         const json = JSON.parse(file!.toString());
 
-        // Add new object to package.json and assign value. It will create new object or update exsisting with new walues
         json.husky = Husky;
 
         console.log('JSON FILE:', json);
@@ -56,8 +63,9 @@ export function addHusky(): Rule {
     };
 }
 
-// You don't have to export the function as default. You can also have more than one rule factory
-// per file.
+/**
+ * It will add dev dependencies required for code formatting to package.json and install them for you.
+ */
 function addDependencies(): Rule {
     return (host: Tree, _context: SchematicContext) => {
         for (let pkg in devDependencies) {
@@ -75,6 +83,11 @@ function addDependencies(): Rule {
     };
 }
 
+/**
+ * It will generate initial .editorconfig file based on user input params.
+ *
+ * @param _options Input params
+ */
 export function editorconfig(_options: ICodeFormatting): Rule {
     return (tree: Tree, _context: SchematicContext) => {
         if (tree) {
@@ -97,6 +110,12 @@ export function editorconfig(_options: ICodeFormatting): Rule {
     };
 }
 
+/**
+ * Helper function used to generate dev dependencies.
+ *
+ * @param packageName   Name of the package
+ * @param version target package version
+ */
 function _nodeDevDependencyFactory(
     packageName: string,
     version: string
@@ -123,23 +142,15 @@ function _nodeDevDependencyFactory(
 
 function modifyTsconfig(): Rule {
     return (tree: Tree, _context: SchematicContext) => {
+        // const path = '/tsconfig.json'
         if (!tree.exists('/tsconfig.json')) {
             throw new SchematicsException(
                 'File tsconfig.json does not exsist!'
             );
         }
 
-        let tsconfigBuffer = readFile(tree, '/tsconfig.json');
-        // console.log("file Buffer:", tsconfigBuffer);
-        if (tsconfigBuffer != null) {
-            tsconfigBuffer.properties.forEach(prop => {
-                prop = prop;
-                // console.log('Tsconfig property:', prop);
-            });
-            // tree.overwrite("/tsconfig.json", tsconfigBuffer);
-        }
-        const path = `/tsconfig.json`;
-        const file = tree.read(path);
+        const tsconfigpath = `/tsconfig.json`;
+        const file = tree.read(tsconfigpath);
         let json = JSON.parse(file!.toString());
         json = json;
         // console.log('JSON FILE:', json.compilerOptions);
