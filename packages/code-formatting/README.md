@@ -1,21 +1,28 @@
-# Custom schematics collection
+# Getting Started With Schematics
 
-Set of custom schematics to supercharge development.
+This repository is a basic Schematic implementation that serves as a starting point to create and publish Schematics to NPM.
 
-###Installation
+### Testing
 
-```shell
-npm install @nrozic/schematics
+To test locally, install `@angular-devkit/schematics-cli` globally and use the `schematics` command line tool. That tool acts the same as the `generate` command of the Angular CLI, but also has a debug mode.
+
+Check the documentation with
+```bash
+schematics --help
 ```
 
-bug #122
+### Unit Testing
 
-##Code formatting
+`npm run test` will run the unit tests, using Jasmine as a runner and test framework.
 
-###Description
+### Publishing
 
-Code formatting schematics provides cli command to easily configure Prettier and linters. It also adds Husky hooks and trigers linting, testing before pushing code to repository, ensuring that only properly formatted and tested code can be pushed to the repository.
+To publish, simply do:
 
-In order to take a full potential of this schematic, every team member should have .editorconfig support in the IDE.
+```bash
+npm run build
+npm publish
+```
 
-###Usage
+That's it!
+ 
