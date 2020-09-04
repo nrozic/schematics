@@ -1,6 +1,6 @@
 {
     "name": "code-formatting",
-    "version": "0.0.1",
+    "version": "0.0.1-alpha.0.0",
     "description": "A blank schematics",
     "scripts": {
         "build": "tsc -p tsconfig.json",
@@ -20,8 +20,8 @@
         "typescript": "~3.9.2"
     },
     "devDependencies": {
-        "@types/node": "^12.11.1",
         "@types/jasmine": "~3.5.0",
+        "@types/node": "^12.11.1",
         "husky": "^4.2.5",
         "jasmine": "^3.5.0",
         "prettier": "^1.19.1",
