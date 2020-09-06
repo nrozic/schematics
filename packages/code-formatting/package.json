@@ -38,6 +38,6 @@
             "*.md"
         ],
         "message": "chore(release): publish",
-        "registry": "http://trilium.io:8080"
+        "registry": "http://verdaccio.trilium.io"
     }
 }
