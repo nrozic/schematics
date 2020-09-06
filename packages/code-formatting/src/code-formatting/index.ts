@@ -19,10 +19,10 @@ import {
 } from '@schematics/angular/utility/dependencies';
 import { ICodeFormatting } from './schema';
 import {
-    strings,
-    JsonAstObject,
-    parseJsonAst,
-    JsonParseMode
+    strings
+    // JsonAstObject,
+    // parseJsonAst,
+    // JsonParseMode
 } from '@angular-devkit/core';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { devDependencies, Husky } from './variables';
@@ -158,18 +158,18 @@ function modifyTsconfig(): Rule {
     };
 }
 
-function readFile(host: Tree, path: string): JsonAstObject {
-    const buffer = host.read(path);
-    if (!buffer) {
-        throw new SchematicsException(`Could not read ${path}.`);
-    }
+// function readFile(host: Tree, path: string): JsonAstObject {
+//     const buffer = host.read(path);
+//     if (!buffer) {
+//         throw new SchematicsException(`Could not read ${path}.`);
+//     }
 
-    const config = parseJsonAst(buffer.toString(), JsonParseMode.Loose);
-    if (config.kind !== 'object') {
-        throw new SchematicsException(
-            `Invalid ${path}. Was expecting an object.`
-        );
-    }
+//     const config = parseJsonAst(buffer.toString(), JsonParseMode.Loose);
+//     if (config.kind !== 'object') {
+//         throw new SchematicsException(
+//             `Invalid ${path}. Was expecting an object.`
+//         );
+//     }
 
-    return config;
-}
+//     return config;
+// }
