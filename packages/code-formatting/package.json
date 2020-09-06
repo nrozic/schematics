@@ -1,5 +1,5 @@
 {
-    "name": "code-formatting",
+    "name": "@trilium/code-formatting",
     "version": "1.0.3-alpha.0",
     "description": "A blank schematics",
     "scripts": {
