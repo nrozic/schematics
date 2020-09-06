@@ -32,12 +32,7 @@
         "tslint": "^6.1.2",
         "tslint-config-prettier": "^1.18.0"
     },
-    "publish": {
-        "ignoreChanges": [
-            "ignored-file",
-            "*.md"
-        ],
-        "message": "chore(release): publish",
-        "registry": "https://verdaccio.trilium.io"
+    "publishConfig": {
+        "registry": "https://verdaccio.trilium.io/"
     }
 }
