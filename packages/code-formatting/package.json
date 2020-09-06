@@ -31,5 +31,13 @@
         "stylelint-config-recommended": "^3.0.0",
         "tslint": "^6.1.2",
         "tslint-config-prettier": "^1.18.0"
+    },
+    "publish": {
+        "ignoreChanges": [
+            "ignored-file",
+            "*.md"
+        ],
+        "message": "chore(release): publish",
+        "registry": "http://trilium.io:8080"
     }
 }
