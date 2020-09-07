@@ -28,7 +28,7 @@ import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { devDependencies, Husky } from './variables';
 
 /**
- * This method will invoke all Rules that are part of this schematic.
+ * This method will invoke all Rules that are part of this schematic...
  *
  * @param _options Input options
  */
