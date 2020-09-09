@@ -1,28 +1,20 @@
-# Getting Started With Schematics
+# Code formatting
 
-This repository is a basic Schematic implementation that serves as a starting point to create and publish Schematics to NPM.
+Code formatting is a custom schematic that will take care of setting up initial project configuration.
+It will generate .editorconfig, install all required dev dependencies and it will add all required configuration files as well as husky hooks.
 
-### Testing
+That way you don't have to worry about code formatting, you write the code the way you like, and rest will be taken care of on the fly.
 
-To test locally, install `@angular-devkit/schematics-cli` globally and use the `schematics` command line tool. That tool acts the same as the `generate` command of the Angular CLI, but also has a debug mode.
+# Installation
 
-Check the documentation with
-```bash
-schematics --help
-```
+In order to install this package, first make sure that you are authorised for registry https://verdaccio.trilium.io
+Run `npm i -D @trilium/code-formatting`
 
-### Unit Testing
+# Usage
 
-`npm run test` will run the unit tests, using Jasmine as a runner and test framework.
+There are 2 commands that you can use to invoke code formatting schematic: run `ng g @trilium/code-formatting:code-formatting` or `schematics @trilium/code-formatting:code-formatting` you will be prompted with few questions, andafter that schematic will do its magic
 
-### Publishing
+![Code formatting usage](https://asciinema.org/a/OxGBHmFXK6tovfBawBDw5EA7G)
 
-To publish, simply do:
-
-```bash
-npm run build
-npm publish
-```
-
-That's it!
- 
+That's it, your'e done. Congratulations and enjoy.
+Happy coding!
