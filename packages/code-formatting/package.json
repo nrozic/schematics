@@ -1,7 +1,7 @@
 {
     "name": "@trilium/code-formatting",
     "version": "1.1.0-alpha.2",
-    "description": "Code formatting is a schematic that will take care of setting up initial project configuration in order to ensure consistent code formatting/linting for the project.",
+    "description": "Custom schematic that will take care of setting up initial project configuration in order to ensure consistent code formatting/linting for the project.",
     "scripts": {
         "build": "tsc -p tsconfig.json",
         "build:watch": "tsc -p tsconfig.json --watch",

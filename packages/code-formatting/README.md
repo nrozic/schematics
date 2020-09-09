@@ -14,7 +14,7 @@ Run `npm i -D @trilium/code-formatting`
 
 There are 2 commands that you can use to invoke code formatting schematic: run `ng g @trilium/code-formatting:code-formatting` or `schematics @trilium/code-formatting:code-formatting` you will be prompted with few questions, andafter that schematic will do its magic
 
-![Code formatting usage](https://asciinema.org/a/OxGBHmFXK6tovfBawBDw5EA7G)
+[![asciicast](https://asciinema.org/a/OxGBHmFXK6tovfBawBDw5EA7G.svg)](https://asciinema.org/a/OxGBHmFXK6tovfBawBDw5EA7G)
 
 That's it, your'e done. Congratulations and enjoy.
 Happy coding!
