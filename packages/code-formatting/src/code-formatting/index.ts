@@ -155,7 +155,7 @@ function addPathsToTsconfig(): Rule {
     const file = tree.read(filePath);
     const json = JSON.parse(stripJsonComments(file!.toString()));
 
-    json.compilerOptions.paths = Paths;
+    json.compilerOptions += Paths;
     const buffer = Buffer.from(JSON.stringify(json));
     console.log('JSON FILE:', json);
     tree.overwrite(filePath, buffer);
