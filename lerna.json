@@ -1,0 +1,10 @@
+{
+  "packages": ["packages/*"],
+  "version": "independent",
+  "npmClient": "npm",
+  "publish": {
+    "ignoreChanges": ["ignored-file", "*.md"],
+    "message": "chore(release): publish",
+    "registry": "https://tverdaccio.trilium.io"
+  }
+}

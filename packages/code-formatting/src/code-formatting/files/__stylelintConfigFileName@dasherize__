@@ -1,0 +1,23 @@
+{
+  "extends": ["stylelint-config-recommended"],
+  "plugins": ["stylelint-order", "stylelint-prettier"],
+  "rules": {
+    "prettier/prettier": true,
+    "order/properties-alphabetical-order": true,
+    "rule-empty-line-before": "always-multi-line",
+    "string-quotes": "single",
+    "declaration-block-single-line-max-declarations": 1,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["function", "if", "each", "include", "mixin", "extend"]
+      }
+    ],
+    "indentation": [
+      2,
+      {
+        "baseIndentLevel": 2
+      }
+    ]
+  }
+}

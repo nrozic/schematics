@@ -5,6 +5,11 @@
             "description": "Schematic that will add code formatting configuration in Angular project.",
             "factory": "./code-formatting/index#codeFormatting",
             "schema": "./code-formatting/schema.json"
+        },
+        "ng-add": {
+            "factory": "./ng-add/index",
+            "description": "Add schematic",
+            "schema": "./my-component/schema.json"
         }
     }
 }
