@@ -25,7 +25,7 @@ import {
   // JsonParseMode
 } from '@angular-devkit/core';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { devDependencies, Husky } from './variables';
+import { devDependencies, Husky, Paths } from './variables';
 
 /**
  * This method will invoke all Rules that are part of this schematic...
@@ -38,7 +38,7 @@ export function codeFormatting(_options: any): Rule {
       addHusky(),
       addDependencies(),
       editorconfig(_options),
-      //   modifyTsconfig(),
+      addPathsToTsconfig(),
     ])(tree, _context);
 }
 
@@ -140,39 +140,27 @@ function _nodeDevDependencyFactory(
 //     };
 // }
 
-// function modifyTsconfig(): Rule {
-//   return (tree: Tree, _context: SchematicContext) => {
-//     const path = '/tsconfig.json';
+/**
+ * Method will generate basic set of path aliases for the angular application.
+ * This is useful to be able to avoid using relative imports in the project
+ */
+function addPathsToTsconfig(): Rule {
+  const filePath = 'tsconfig.json';
 
-//     if (!tree.exists(path)) {
-//       throw new SchematicsException('File tsconfig.json does not exsist!');
-//     }
+  return (tree: Tree, _context: SchematicContext) => {
+    if (!tree.exists(filePath)) {
+      throw new SchematicsException('File tsconfig.json does not exsist!');
+    }
+    const file = tree.read(filePath);
+    const json = JSON.parse(file!.toString());
 
-//     const file = tree.read(path);
-//     let json = JSON.parse(file!.toString());
-//     json.paths = {
-//       'core-js/es7/reflect': [
-//         'node_modules/core-js/proposals/reflect-metadata',
-//       ],
-//       'core-js/es6/*': ['node_modules/core-js/es/*'],
-//       '@assets/*': ['src/assets/*'],
-//       '@env/*': ['src/environments/*'],
-//       '@ui/*': ['src/app/common/ui-components/*'],
-//       '@constants/*': ['src/app/common/constants/*'],
-//       '@models/*': ['src/app/common/models/*'],
-//       '@guards/*': ['src/app/common/guards/*'],
-//       '@animations/*': ['src/app/common/animations/*'],
-//       '@layouts/*': ['src/app/common/layouts*'],
-//       '@common/*': ['src/app/common/*'],
-//       '@app/*': ['src/app/*'],
-//       '@src/*': ['src/*'],
-//       '@e2e/*': ['e2e/*'],
-//     };
-//     console.log('JSON FILE:', json.compilerOptions);
-//     tree.overwrite(path, JSON.stringify(json));
-//     return tree;
-//   };
-// }
+    json.paths = Paths;
+
+    console.log('JSON FILE:', json);
+    tree.overwrite(filePath, JSON.stringify(json));
+    return tree;
+  };
+}
 
 // function readFile(host: Tree, path: string): JsonAstObject {
 //     const buffer = host.read(path);
