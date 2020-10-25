@@ -25,7 +25,7 @@ import {
   // JsonParseMode
 } from '@angular-devkit/core';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { devDependencies, Husky, Paths } from './variables';
+import { devDependencies, Husky, paths } from './variables';
 import stripJsonComments = require('strip-json-comments');
 
 /**
@@ -155,7 +155,7 @@ function addPathsToTsconfig(): Rule {
     const file = tree.read(filePath);
     const json = JSON.parse(stripJsonComments(file!.toString()));
 
-    json.compilerOptions += Paths;
+    json.compilerOptions.paths = paths;
     const buffer = Buffer.from(JSON.stringify(json));
     console.log('JSON FILE:', json);
     tree.overwrite(filePath, buffer);

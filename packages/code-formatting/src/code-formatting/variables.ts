@@ -18,14 +18,12 @@ export const Husky: { [key: string]: Object } = {
   },
 };
 
-export const Paths: { [key: string]: Object } = {
-  paths: {
-    'core-js/es7/reflect': ['node_modules/core-js/proposals/reflect-metadata'],
-    'core-js/es6/*': ['node_modules/core-js/es/*'],
-    '@assets/*': ['src/assets/*'],
-    '@env/*': ['src/environments/*'],
-    '@app/*': ['src/app/*'],
-    '@src/*': ['src/*'],
-    '@e2e/*': ['e2e/*'],
-  },
+export const paths = {
+  'core-js/es7/reflect': ['node_modules/core-js/proposals/reflect-metadata'],
+  'core-js/es6/*': ['node_modules/core-js/es/*'],
+  '@assets/*': ['src/assets/*'],
+  '@env/*': ['src/environments/*'],
+  '@app/*': ['src/app/*'],
+  '@src/*': ['src/*'],
+  '@e2e/*': ['e2e/*'],
 };
