@@ -25,7 +25,12 @@ import {
   // JsonParseMode
 } from '@angular-devkit/core';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { devDependencies, Husky, paths } from './variables';
+import {
+  devDependencies,
+  Husky,
+  paths,
+  tsconfigVariableNameOptions,
+} from './variables';
 import stripJsonComments = require('strip-json-comments');
 
 /**
@@ -145,7 +150,7 @@ function addPathsToTsconfig(): Rule {
     const file = tree.read(filePath);
     const json = JSON.parse(stripJsonComments(file!.toString()));
 
-    json.compilerOptions.paths = paths;
+    json.compilerOptions.paths = { ...json.compilerOptions.paths, ...paths };
     const buffer = Buffer.from(JSON.stringify(json));
     tree.overwrite(filePath, buffer);
     return tree;
@@ -162,7 +167,7 @@ function editTslint(): Rule {
     const file = tree.read(filePath);
     const json = JSON.parse(stripJsonComments(file!.toString()));
 
-    json.rules['variable-name'].options.push('allow-snake-case');
+    json.rules['variable-name'].options = [...tsconfigVariableNameOptions];
     const buffer = Buffer.from(JSON.stringify(json));
     tree.overwrite(filePath, buffer);
     return tree;

@@ -29,3 +29,11 @@ export const paths = {
   '@src/*': ['src/*'],
   '@e2e/*': ['e2e/*'],
 };
+
+export const tsconfigVariableNameOptions = [
+  'ban-keywords',
+  'check-format',
+  'allow-pascal-case',
+  'allow-snake-case',
+  'allow-snake-case',
+];
