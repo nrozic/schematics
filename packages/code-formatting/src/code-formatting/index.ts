@@ -39,7 +39,7 @@ export function codeFormatting(_options: any): Rule {
       addHusky(),
       addDependencies(),
       editorconfig(_options),
-      addPrettierConfiguration(),
+      addPrettierConfiguration(_options),
       addPathsToTsconfig(),
     ])(tree, _context);
 }
