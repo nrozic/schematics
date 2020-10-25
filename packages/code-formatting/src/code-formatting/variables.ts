@@ -1,15 +1,14 @@
 export const devDependencies: { [key: string]: string } = {
-  husky: '*',
-  prettier: '*',
-  'prettier-stylelint': '*',
-  'pretty-quick': '*',
-  stylelint: '*',
-  'stylelint-config-recommended': '*',
-  tslint: '*',
-  'tslint-config-prettier': '*',
-  'stylelint-order': '*',
-  'stylelint-prettier': '*',
-  // 'tslint-eslint-rules': '*',
+  husky: '^4.3.0',
+  prettier: '^2.1.2',
+  'prettier-stylelint': '^0.4.2',
+  'pretty-quick': '^3.1.0',
+  stylelint: '^13.7.2',
+  'stylelint-config-recommended': '^3.0.0',
+  tslint: '^6.1.3',
+  'tslint-config-prettier': '^1.18.0',
+  'stylelint-order': '^4.1.0',
+  'stylelint-prettier': '^1.1.2',
 };
 
 export const Husky: { [key: string]: object } = {
