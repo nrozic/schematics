@@ -65,7 +65,7 @@ export function addHusky(): Rule {
     const file = tree.read(filePath);
     const json = JSON.parse(file!.toString());
 
-    json.husky = Husky;
+    json.husky = { ...json.Husky, ...Husky };
 
     console.log(`${filePath} generated!`, json);
     tree.overwrite(filePath, JSON.stringify(json));
