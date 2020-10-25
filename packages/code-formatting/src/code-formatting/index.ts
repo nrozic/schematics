@@ -36,16 +36,13 @@ import stripJsonComments = require('strip-json-comments');
 export function codeFormatting(_options: any): Rule {
   return (tree: Tree, _context: SchematicContext) =>
     chain([
+      addDependencies(),
       addHusky(),
       addPathsToTsconfig(),
-      addDependencies(),
       writeFile(_options, '/.editorconfig'),
       writeFile(_options, '/.prettierignore'),
       writeFile(_options, '/.prettierrc.json'),
-      writeFile(_options, '/.stylelintrc.json'),
-      // addPrettierConfiguration(_options),
-      // addPrettierIgnore(_options),
-      // addStylelintConfig(_options),
+      writeFile(_options, '.stylelintrc.json'),
     ])(tree, _context);
 }
 
@@ -64,7 +61,7 @@ export function addHusky(): Rule {
 
     json.husky = Husky;
 
-    console.log('JSON FILE:', json);
+    console.log(`${filePath} generated!`, json);
     tree.overwrite(filePath, JSON.stringify(json));
     return tree;
   };
@@ -80,11 +77,8 @@ function addDependencies(): Rule {
         pkg,
         devDependencies[pkg]
       );
-
       addPackageJsonDependency(host, nodeDependency);
     }
-
-    // console.log("host:", host, "kontekst:", _context);
 
     _context.addTask(new NodePackageInstallTask());
   };
@@ -96,7 +90,6 @@ function addDependencies(): Rule {
  * @param _options Input params
  */
 export function writeFile(_options: ICodeFormatting, filePath: string): Rule {
-  console.log(`Generating file`, filePath);
   return (tree: Tree, _context: SchematicContext) => {
     if (!tree) {
       throw new SchematicsException(`File ${filePath} does not exsist!`);
@@ -110,8 +103,7 @@ export function writeFile(_options: ICodeFormatting, filePath: string): Rule {
       }),
       forEach((fileEntry: FileEntry) => {
         // Just by adding this is allows the file to be overwritten if it already exists
-        if (tree.exists(fileEntry.path))
-          tree.overwrite(filePath, fileEntry.content);
+        if (tree.exists(fileEntry.path)) return null;
         return fileEntry;
       }),
     ]);
@@ -154,7 +146,6 @@ function addPathsToTsconfig(): Rule {
 
     json.compilerOptions.paths = paths;
     const buffer = Buffer.from(JSON.stringify(json));
-    console.log('JSON FILE:', json);
     tree.overwrite(filePath, buffer);
     return tree;
   };
