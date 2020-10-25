@@ -34,6 +34,5 @@ export const tsconfigVariableNameOptions = [
   'ban-keywords',
   'check-format',
   'allow-pascal-case',
-  'allow-snake-case',
-  'allow-snake-case',
+  'allow-leading-underscore',
 ];
