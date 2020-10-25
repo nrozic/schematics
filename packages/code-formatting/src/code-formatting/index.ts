@@ -37,12 +37,15 @@ export function codeFormatting(_options: any): Rule {
   return (tree: Tree, _context: SchematicContext) =>
     chain([
       addHusky(),
-      addDependencies(),
-      editorconfig(_options),
-      addPrettierConfiguration(_options),
-      addPrettierIgnore(_options),
-      addStylelintConfig(_options),
       addPathsToTsconfig(),
+      addDependencies(),
+      writeFile(_options, '/.editorconfig'),
+      writeFile(_options, '/.prettierignore'),
+      writeFile(_options, '/.prettierrc.json'),
+      writeFile(_options, '/.stylelintrc.json'),
+      // addPrettierConfiguration(_options),
+      // addPrettierIgnore(_options),
+      // addStylelintConfig(_options),
     ])(tree, _context);
 }
 
@@ -88,14 +91,17 @@ function addDependencies(): Rule {
 }
 
 /**
- * It will generate initial .editorconfig file based on user input params.
+ * It will generate file
  *
  * @param _options Input params
  */
-export function editorconfig(_options: ICodeFormatting): Rule {
+export function writeFile(_options: ICodeFormatting, filePath: string): Rule {
+  console.log(`Generating file`, filePath);
   return (tree: Tree, _context: SchematicContext) => {
-    if (tree) {
+    if (!tree) {
+      throw new SchematicsException(`File ${filePath} does not exsist!`);
     }
+
     const sourceTemplates = url('./files');
     const sourceParametrizedTemplates = apply(sourceTemplates, [
       template({
@@ -105,73 +111,7 @@ export function editorconfig(_options: ICodeFormatting): Rule {
       forEach((fileEntry: FileEntry) => {
         // Just by adding this is allows the file to be overwritten if it already exists
         if (tree.exists(fileEntry.path))
-          tree.overwrite('/.editorconfig', fileEntry.content);
-        return fileEntry;
-      }),
-    ]);
-
-    return mergeWith(sourceParametrizedTemplates);
-  };
-}
-
-export function addPrettierConfiguration(_options: ICodeFormatting): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    if (tree) {
-    }
-    const sourceTemplates = url('./files');
-    const sourceParametrizedTemplates = apply(sourceTemplates, [
-      template({
-        ..._options,
-        ...strings,
-      }),
-      forEach((fileEntry: FileEntry) => {
-        // Just by adding this is allows the file to be overwritten if it already exists
-        if (tree.exists(fileEntry.path))
-          tree.overwrite('/.prettierrc.json', fileEntry.content);
-        return fileEntry;
-      }),
-    ]);
-
-    return mergeWith(sourceParametrizedTemplates);
-  };
-}
-
-export function addPrettierIgnore(_options: ICodeFormatting): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    if (tree) {
-    }
-    const sourceTemplates = url('./files');
-    const sourceParametrizedTemplates = apply(sourceTemplates, [
-      template({
-        ..._options,
-        ...strings,
-      }),
-      forEach((fileEntry: FileEntry) => {
-        // Just by adding this is allows the file to be overwritten if it already exists
-        if (tree.exists(fileEntry.path))
-          tree.overwrite('/.prettierignore', fileEntry.content);
-        return fileEntry;
-      }),
-    ]);
-
-    return mergeWith(sourceParametrizedTemplates);
-  };
-}
-
-export function addStylelintConfig(_options: ICodeFormatting): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
-    if (tree) {
-    }
-    const sourceTemplates = url('./files');
-    const sourceParametrizedTemplates = apply(sourceTemplates, [
-      template({
-        ..._options,
-        ...strings,
-      }),
-      forEach((fileEntry: FileEntry) => {
-        // Just by adding this is allows the file to be overwritten if it already exists
-        if (tree.exists(fileEntry.path))
-          tree.overwrite('/.stylelintrc.json', fileEntry.content);
+          tree.overwrite(filePath, fileEntry.content);
         return fileEntry;
       }),
     ]);
