@@ -145,7 +145,7 @@ function _nodeDevDependencyFactory(
  * This is useful to be able to avoid using relative imports in the project
  */
 function addPathsToTsconfig(): Rule {
-  const filePath = 'tsconfig.json';
+  const filePath = '/tsconfig.json';
 
   return (tree: Tree, _context: SchematicContext) => {
     if (!tree.exists(filePath)) {
@@ -156,7 +156,7 @@ function addPathsToTsconfig(): Rule {
 
     json.compilerOptions.paths = Paths;
     const buffer = Buffer.from(JSON.stringify(json));
-    console.log('JSON FILE:', buffer);
+    console.log('JSON FILE:', file, 'JSON:', json, 'buffer:', buffer);
     tree.overwrite(filePath, buffer);
     return tree;
   };
