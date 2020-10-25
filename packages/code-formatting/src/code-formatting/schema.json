@@ -3,7 +3,7 @@
   "id": "iCodeFormatting",
   "title": "Code formatting rules for Angular projects",
   "type": "object",
-  "description": "Generates code formatting configuration to ensure consistent code formatting across the team.",
+  "description": "Generates code formatting and linters configuration to ensure consistent code formatting and code quality across the team.",
   "properties": {
     "projectRoot": {
       "description": "The root directory of the app.",
