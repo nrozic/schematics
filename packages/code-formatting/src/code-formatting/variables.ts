@@ -9,7 +9,7 @@ export const devDependencies: { [key: string]: string } = {
   'tslint-config-prettier': '*',
   'stylelint-order': '*',
   'stylelint-prettier': '*',
-  // 'tslint-eslint-rules': '*',
+  'tslint-eslint-rules': '*',
 };
 
 export const Husky: { [key: string]: object } = {
