@@ -39,6 +39,7 @@ export function codeFormatting(_options: any): Rule {
       addHusky(),
       addDependencies(),
       editorconfig(_options),
+      addPrettierConfiguration(),
       addPathsToTsconfig(),
     ])(tree, _context);
 }
@@ -70,7 +71,7 @@ export function addHusky(): Rule {
 function addDependencies(): Rule {
   return (host: Tree, _context: SchematicContext) => {
     for (let pkg in devDependencies) {
-      const nodeDependency: NodeDependency = _nodeDevDependencyFactory(
+      const nodeDependency: NodeDependency = _nodeDependencyFactory(
         pkg,
         devDependencies[pkg]
       );
@@ -111,13 +112,38 @@ export function editorconfig(_options: ICodeFormatting): Rule {
   };
 }
 
+export function addPrettierConfiguration(_options: ICodeFormatting): Rule {
+  return (tree: Tree, _context: SchematicContext) => {
+    if (tree) {
+    }
+    const sourceTemplates = url('./files');
+    const sourceParametrizedTemplates = apply(sourceTemplates, [
+      template({
+        ..._options,
+        ...strings,
+      }),
+      forEach((fileEntry: FileEntry) => {
+        // Just by adding this is allows the file to be overwritten if it already exists
+        if (tree.exists(fileEntry.path))
+          tree.overwrite(
+            `/${_options.prettierConfigFileName}`,
+            fileEntry.content
+          );
+        return fileEntry;
+      }),
+    ]);
+
+    return mergeWith(sourceParametrizedTemplates);
+  };
+}
+
 /**
  * Helper function used to generate dev dependencies.
  *
  * @param packageName   Name of the package
  * @param version target package version
  */
-function _nodeDevDependencyFactory(
+function _nodeDependencyFactory(
   packageName: string,
   version: string
 ): NodeDependency {
@@ -128,18 +154,6 @@ function _nodeDevDependencyFactory(
     overwrite: true,
   };
 }
-
-// function _nodeDependencyFactory(
-//     packageName: string,
-//     version: string
-// ): NodeDependency {
-//     return {
-//         type: NodeDependencyType.Default,
-//         name: packageName,
-//         version: version,
-//         overwrite: true
-//     };
-// }
 
 /**
  * Method will generate basic set of path aliases for the angular application.
@@ -162,19 +176,3 @@ function addPathsToTsconfig(): Rule {
     return tree;
   };
 }
-
-// function readFile(host: Tree, path: string): JsonAstObject {
-//     const buffer = host.read(path);
-//     if (!buffer) {
-//         throw new SchematicsException(`Could not read ${path}.`);
-//     }
-
-//     const config = parseJsonAst(buffer.toString(), JsonParseMode.Loose);
-//     if (config.kind !== 'object') {
-//         throw new SchematicsException(
-//             `Invalid ${path}. Was expecting an object.`
-//         );
-//     }
-
-//     return config;
-// }

@@ -9,7 +9,7 @@ export const devDependencies: { [key: string]: string } = {
   'tslint-config-prettier': '^1.18.0',
 };
 
-export const Husky: { [key: string]: Object } = {
+export const Husky: { [key: string]: object } = {
   hooks: {
     'pre-commit':
       "pretty-quick --verbose --staged && prettier-stylelint --write -q 'src/**/*.{css,scss}'",

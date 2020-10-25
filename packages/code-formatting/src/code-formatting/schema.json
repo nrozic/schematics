@@ -38,6 +38,33 @@
         "$source": "argv",
         "index": 0
       }
+    },
+    "prettierIgnoreFileName": {
+      "description": "Name for the Prittier ignore file",
+      "type": "string",
+      "default": ".prettierignore",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "prettierConfigFileName": {
+      "description": "Name for the Prittier config file",
+      "type": "string",
+      "default": ".prettierrc.json",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "stylelintConfigFileName": {
+      "description": "Name for the Stylelint config file",
+      "type": "string",
+      "default": ".stylelintrc.json",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
     }
   },
   "required": ["indentStyle", "indentSize"]
