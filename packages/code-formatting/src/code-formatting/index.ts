@@ -40,6 +40,8 @@ export function codeFormatting(_options: any): Rule {
       addDependencies(),
       editorconfig(_options),
       addPrettierConfiguration(_options),
+      addPrettierIgnore(_options),
+      addStylelintConfig(_options),
       addPathsToTsconfig(),
     ])(tree, _context);
 }
@@ -103,7 +105,7 @@ export function editorconfig(_options: ICodeFormatting): Rule {
       forEach((fileEntry: FileEntry) => {
         // Just by adding this is allows the file to be overwritten if it already exists
         if (tree.exists(fileEntry.path))
-          tree.overwrite('/.editorconfig', fileEntry.content);
+          tree.overwrite(`/${_options.configFileName}`, fileEntry.content);
         return fileEntry;
       }),
     ]);
@@ -127,6 +129,56 @@ export function addPrettierConfiguration(_options: ICodeFormatting): Rule {
         if (tree.exists(fileEntry.path))
           tree.overwrite(
             `/${_options.prettierConfigFileName}`,
+            fileEntry.content
+          );
+        return fileEntry;
+      }),
+    ]);
+
+    return mergeWith(sourceParametrizedTemplates);
+  };
+}
+
+export function addPrettierIgnore(_options: ICodeFormatting): Rule {
+  return (tree: Tree, _context: SchematicContext) => {
+    if (tree) {
+    }
+    const sourceTemplates = url('./files');
+    const sourceParametrizedTemplates = apply(sourceTemplates, [
+      template({
+        ..._options,
+        ...strings,
+      }),
+      forEach((fileEntry: FileEntry) => {
+        // Just by adding this is allows the file to be overwritten if it already exists
+        if (tree.exists(fileEntry.path))
+          tree.overwrite(
+            `/${_options.prettierIgnoreFileName}`,
+            fileEntry.content
+          );
+        return fileEntry;
+      }),
+    ]);
+
+    return mergeWith(sourceParametrizedTemplates);
+  };
+}
+
+export function addStylelintConfig(_options: ICodeFormatting): Rule {
+  return (tree: Tree, _context: SchematicContext) => {
+    if (tree) {
+    }
+    const sourceTemplates = url('./files');
+    const sourceParametrizedTemplates = apply(sourceTemplates, [
+      template({
+        ..._options,
+        ...strings,
+      }),
+      forEach((fileEntry: FileEntry) => {
+        // Just by adding this is allows the file to be overwritten if it already exists
+        if (tree.exists(fileEntry.path))
+          tree.overwrite(
+            `/${_options.stylelintConfigFileName}`,
             fileEntry.content
           );
         return fileEntry;
