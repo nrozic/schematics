@@ -39,6 +39,7 @@ export function codeFormatting(_options: any): Rule {
       addDependencies(),
       addHusky(),
       addPathsToTsconfig(),
+      editTslint(),
       writeFile(_options, '/.editorconfig'),
       writeFile(_options, '/.prettierignore'),
       writeFile(_options, '/.prettierrc.json'),
@@ -145,6 +146,23 @@ function addPathsToTsconfig(): Rule {
     const json = JSON.parse(stripJsonComments(file!.toString()));
 
     json.compilerOptions.paths = paths;
+    const buffer = Buffer.from(JSON.stringify(json));
+    tree.overwrite(filePath, buffer);
+    return tree;
+  };
+}
+
+function editTslint(): Rule {
+  const filePath = '/tslint.json';
+
+  return (tree: Tree, _context: SchematicContext) => {
+    if (!tree.exists(filePath)) {
+      throw new SchematicsException('File tslint.json does not exsist!');
+    }
+    const file = tree.read(filePath);
+    const json = JSON.parse(stripJsonComments(file!.toString()));
+
+    json.rules['variable-name'].options.push('allow-snake-case');
     const buffer = Buffer.from(JSON.stringify(json));
     tree.overwrite(filePath, buffer);
     return tree;
