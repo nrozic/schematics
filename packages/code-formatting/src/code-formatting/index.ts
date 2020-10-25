@@ -156,7 +156,7 @@ function addPathsToTsconfig(): Rule {
 
     json.paths = Paths;
 
-    console.log('JSON FILE:', json);
+    console.log('JSON FILE:', tree.overwrite(filePath, JSON.stringify(json)));
     tree.overwrite(filePath, JSON.stringify(json));
     return tree;
   };
