@@ -26,6 +26,7 @@ import {
 } from '@angular-devkit/core';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { devDependencies, Husky, Paths } from './variables';
+import stripJsonComments = require('strip-json-comments');
 
 /**
  * This method will invoke all Rules that are part of this schematic...
@@ -152,11 +153,11 @@ function addPathsToTsconfig(): Rule {
       throw new SchematicsException('File tsconfig.json does not exsist!');
     }
     const file = tree.read(filePath);
-    const json = JSON.parse(file!.toString());
+    const json = JSON.parse(stripJsonComments(file!.toString()));
 
     json.compilerOptions.paths = Paths;
     const buffer = Buffer.from(JSON.stringify(json));
-    console.log('JSON FILE:', file, 'JSON:', json, 'buffer:', buffer);
+    console.log('JSON FILE:', json);
     tree.overwrite(filePath, buffer);
     return tree;
   };
