@@ -167,6 +167,8 @@ function editTslint(): Rule {
     const file = tree.read(filePath);
     const json = JSON.parse(stripJsonComments(file!.toString()));
 
+    json.extends = ['tslint:recommended', 'tslint-eslint-rules'];
+    json.rules['no-unexpected-multiline'] = true;
     json.rules['variable-name'].options = [...tsconfigVariableNameOptions];
     json.rules.semicolon.options = ['never'];
     const buffer = Buffer.from(JSON.stringify(json));
