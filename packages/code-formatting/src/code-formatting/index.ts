@@ -105,7 +105,7 @@ export function editorconfig(_options: ICodeFormatting): Rule {
       forEach((fileEntry: FileEntry) => {
         // Just by adding this is allows the file to be overwritten if it already exists
         if (tree.exists(fileEntry.path))
-          tree.overwrite(`/${_options.configFileName}`, fileEntry.content);
+          tree.overwrite('/.editorconfig', fileEntry.content);
         return fileEntry;
       }),
     ]);
@@ -127,10 +127,7 @@ export function addPrettierConfiguration(_options: ICodeFormatting): Rule {
       forEach((fileEntry: FileEntry) => {
         // Just by adding this is allows the file to be overwritten if it already exists
         if (tree.exists(fileEntry.path))
-          tree.overwrite(
-            `/${_options.prettierConfigFileName}`,
-            fileEntry.content
-          );
+          tree.overwrite('/.prettierrc.json', fileEntry.content);
         return fileEntry;
       }),
     ]);
@@ -152,10 +149,7 @@ export function addPrettierIgnore(_options: ICodeFormatting): Rule {
       forEach((fileEntry: FileEntry) => {
         // Just by adding this is allows the file to be overwritten if it already exists
         if (tree.exists(fileEntry.path))
-          tree.overwrite(
-            `/${_options.prettierIgnoreFileName}`,
-            fileEntry.content
-          );
+          tree.overwrite('/.prettierignore', fileEntry.content);
         return fileEntry;
       }),
     ]);
@@ -177,10 +171,7 @@ export function addStylelintConfig(_options: ICodeFormatting): Rule {
       forEach((fileEntry: FileEntry) => {
         // Just by adding this is allows the file to be overwritten if it already exists
         if (tree.exists(fileEntry.path))
-          tree.overwrite(
-            `/${_options.stylelintConfigFileName}`,
-            fileEntry.content
-          );
+          tree.overwrite('/.stylelintrc.json', fileEntry.content);
         return fileEntry;
       }),
     ]);
